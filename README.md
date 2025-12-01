@@ -24,29 +24,32 @@
 **Prerequisites:** Docker installed.
 
 **Build:**
-```bash
+```
+bash
 docker build -t tournament-digest .
+```
 
 **Run:**
-docker run -it --rm --env-file .env tournament-digest
+`docker run -it --rm --env-file .env tournament-digest`
 
 **Usage:**
 
-1. Enter a Tournament Slug (e.g., genesis-x or supernova-2024).
-2. Select the Event ID from the list (e.g., [1] Ultimate Singles).
+1. Enter a Tournament Slug (e.g., `genesis-x` or `supernova-2024`).
+2. Select the Event ID from the list (e.g., `[1] Ultimate Singles`).
 3. View the generated SPR Report in the console.
 
 ## 4. Design Decisions
-**Why SPR instead of "Seed - Placement"?** In Double Elimination brackets, placement difficulty is exponential. Placing 65th vs 49th is a skill gap equivalent to placing 2nd vs 1st. I implemented a custom "get_placement_tiers" algorithm to map raw placements to "Bracket Tiers." This ensures the analysis accurately reflects what we're setting out to evaluate.
+**Why SPR instead of "Seed - Placement"?** In Double Elimination brackets, placement difficulty is exponential. Placing 65th vs 49th is a skill gap equivalent to placing 2nd vs 1st. I implemented a custom `get_placement_tiers` algorithm to map raw placements to "Bracket Tiers." This ensures the analysis accurately reflects what we're setting out to evaluate.
 
-**Interactive CLI vs. Hardcoded Script:** I chose to make the tool interactive using input() and dynamic API queries.
-* Tradeoff: This requires the user to run Docker in interactive mode (-it), which is slightly more complex.
+**Interactive CLI vs. Hardcoded Script:** I chose to make the tool interactive using `input()` and dynamic API queries.
+* Tradeoff: This requires the user to run Docker in interactive mode (`-it`), which is slightly more complex.
 * Benefit: The tool is "Game Agnostic." It can analyze any tournament seamlessly.
 
 ## 5. Results & Evaluation
 **Validation:** I validated the tool against "Genesis X" (1,500+ entrants). The tool correctly identified known outlier runs and correctly handled API pagination for large datasets.
 
 **Output:**
+```
 --- Major Tournament Digest ---
 Enter Tournament Slug (default: 'genesis-x'):
 Looking up tournament: genesis-x...
@@ -179,9 +182,10 @@ Analyzed 1506 entrants for Ultimate Singles
   Placed 385 | SPR: +3
   --------------------------------
 Report Generation Complete.
+```
 
 ## 6. Future Work
 
-**Visualization:** Integration with matplotlib to generate a heatmap of players.
+**Visualization:** Integration with `matplotlib` to generate a heatmap of players.
 
 **Export:** Option to save the report to a CSV file.
